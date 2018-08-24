@@ -25,8 +25,8 @@ class ParametrosAdmin(admin.ModelAdmin):
 
 class MovRotativoAdmin(admin.ModelAdmin):
 
-    # @todo colocar o relacionamento do veículo na grade
-    list_display = ['get_veiculo','entrada', 'saida', 'valor_hora', 'pago', 'total', 'horas_total']
+    # @todo aprender como renomeia os itens da grade
+    list_display = ['o_veiculo', 'entrada', 'saida', 'valor_hora', 'pago', 'total', 'horas_total']
     search_fields = ['veiculo__veiculo']
     list_filter = ['entrada', 'saida', 'pago']
 

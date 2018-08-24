@@ -129,7 +129,7 @@ class MovRotativo(models.Model):
         else:
             return 0
 
-    def get_veiculo(self):
+    def o_veiculo(self):
         return self.veiculo
 
     def __str__(self):
