@@ -1,5 +1,5 @@
 from django.db import models
-
+import math
 
 class Pessoa(models.Model):
     nome = models.CharField('Nome', max_length=100)
@@ -111,10 +111,26 @@ class MovRotativo(models.Model):
     entrada = models.DateTimeField('Data de entrada', auto_now=False)
     saida = models.DateTimeField('Data de saída', auto_now=False, null=True, blank=True)
     valor_hora = models.DecimalField('Valor da hora', max_digits=5, decimal_places=2)
-    veiculo = models.OneToOneField(
+    veiculo = models.ForeignKey(
         Veiculo, verbose_name='Veículo', related_name='veiculo', on_delete=models.CASCADE
     )
     pago = models.BooleanField('Pago?', default=False)
+
+    # @todo O sistema não contempla uma permanencia minima, portanto 1 segundo de diferença equivale a uma hora
+    def horas_total(self):
+        if self.saida:
+            return math.ceil((self.saida - self.entrada).total_seconds() / 3600)
+        else:
+            return 0
+
+    def total(self):
+        if self.saida:
+            return self.valor_hora * self.horas_total()
+        else:
+            return 0
+
+    def get_veiculo(self):
+        return self.veiculo
 
     def __str__(self):
         return self.veiculo.placa
