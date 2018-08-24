@@ -138,3 +138,18 @@ class MovRotativo(models.Model):
     class Meta:
         verbose_name = 'Movimento Rotativo'
         verbose_name_plural = 'Movimentos Rotativo'
+
+
+class Mensalista(models.Model):
+    veiculo = models.ForeignKey(
+        Veiculo, verbose_name='Veículo', related_name='veiculo_mensal', on_delete=models.CASCADE
+    )
+    inicio = models.DateField('Início da Cobrança')
+    valor_mes = models.DecimalField('Valor do mês', max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return '{} - {}'.format(self.veiculo, self.inicio)
+
+    class Meta:
+        verbose_name = 'Movimento Mensalista'
+        verbose_name_plural = 'Movimentos Mensalista'

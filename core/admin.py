@@ -7,6 +7,7 @@ from .models import (
     Pessoa,
     Parametros,
     MovRotativo,
+    Mensalista,
 )
 
 
@@ -38,6 +39,7 @@ admin.site.register(CorVeiculo)
 admin.site.register(Pessoa)
 admin.site.register(Parametros, ParametrosAdmin)
 admin.site.register(MovRotativo, MovRotativoAdmin)
+admin.site.register(Mensalista)
 
 
 
