@@ -63,7 +63,7 @@ class Veiculo(models.Model):
     placa = models.CharField('Placa', max_length=7)
     avarias = models.TextField('Avarias existentes', blank=True)
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
-    atualizado_at = models.DateTimeField('Atualizado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now_add=True)
 
     def __str__(self):
         return '{} - {} - {}'.format(self.marca, self.cor, self.placa)
@@ -71,3 +71,54 @@ class Veiculo(models.Model):
     class Meta:
         verbose_name = 'Veículo'
         verbose_name_plural = 'Veículos'
+
+
+class Parametros(models.Model):
+    valor_hora = models.DecimalField('Valor da hora', max_digits=5, decimal_places=2)
+    valor_mes = models.DecimalField('Valor do mês', max_digits=6, decimal_places=2)
+    atual = models.BooleanField('Ativo?', blank=True, default=False)
+    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    atualizado_em = models.DateTimeField('Atualizado em', auto_now_add=True)
+
+    def save(self, force_insert=False, force_update=False):
+        instance = super(Parametros, self)
+        instance.save(force_insert, force_update)
+        if self.atual:
+            pass
+            # instance.exclude(pk=instance.pk).update(correct=False)
+            # @todo Fazer o update de todos os parametros para false quando atualizar o registro
+
+    def __str__(self):
+        return 'Parâmetos Gerais valor hora: {} valor mês: {}'.format(self.valor_hora, self.valor_mes)
+
+    class Meta:
+        verbose_name = 'Parâmeto'
+        verbose_name_plural = 'Parâmetos'
+
+
+''' def post_save_parametros(instance, **kwargs):
+    instance.thread.save()
+    if instance.correct:
+        instance.thread.replies.exclude(pk=instance.pk).update(correct=False)
+
+
+models.signals.post_save.connect(
+    post_save_parametros, sender=Parametros, dispatch_uid='post_save_parametros'
+)'''
+
+
+class MovRotativo(models.Model):
+    entrada = models.DateTimeField('Data de entrada', auto_now=False)
+    saida = models.DateTimeField('Data de saída', auto_now=False, null=True, blank=True)
+    valor_hora = models.DecimalField('Valor da hora', max_digits=5, decimal_places=2)
+    veiculo = models.OneToOneField(
+        Veiculo, verbose_name='Veículo', related_name='veiculo', on_delete=models.CASCADE
+    )
+    pago = models.BooleanField('Pago?', default=False)
+
+    def __str__(self):
+        return self.veiculo.placa
+
+    class Meta:
+        verbose_name = 'Movimento Rotativo'
+        verbose_name_plural = 'Movimentos Rotativo'
