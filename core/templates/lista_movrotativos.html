@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Lista movimentos Rotativos</h2>
+
+    <ul>
+    {% for movrotativo in movrotativos %}
+        <li> {{ movrotativo }}</li>
+    {% empty %}
+        <li> Nenhum movimento rotativo encontrado</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
