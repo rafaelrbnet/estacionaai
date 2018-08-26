@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Lista veículos</h2>
+
+    <ul>
+    {% for veiculo in veiculos %}
+        <li> {{ veiculo }}</li>
+    {% empty %}
+        <li> Nenhuma veículo encontrado</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
