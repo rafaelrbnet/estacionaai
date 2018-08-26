@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Lista pessoas</h2>
+
+    <ul>
+    {% for pessoa in pessoas %}
+        <li> {{ pessoa.nome }}</li>
+    {% empty %}
+        <li> Nenhuma pessoa encontrada</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
