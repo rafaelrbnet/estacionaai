@@ -8,6 +8,7 @@ from .models import (
     Parametros,
     MovRotativo,
     Mensalista,
+    MovMensalista,
 )
 
 
@@ -27,9 +28,15 @@ class ParametrosAdmin(admin.ModelAdmin):
 class MovRotativoAdmin(admin.ModelAdmin):
 
     # @todo aprender como renomeia os itens da grade
-    list_display = ['o_veiculo', 'entrada', 'saida', 'valor_hora', 'pago', 'total', 'horas_total']
-    search_fields = ['veiculo__veiculo']
+    list_display = ['veiculo', 'entrada', 'saida', 'valor_hora', 'pago', 'total', 'horas_total']
+    # @todo aprender como coloca relacionamento na busca
+    # search_fields = ['veiculo__marca']
     list_filter = ['entrada', 'saida', 'pago']
+
+
+class MovMensalistaAdmin(admin.ModelAdmin):
+    list_display = ['mensalista', 'dt_pgto', 'total']
+    list_filter = ['dt_pgto']
 
 
 admin.site.register(TamanhoVeiculo)
@@ -40,6 +47,7 @@ admin.site.register(Pessoa)
 admin.site.register(Parametros, ParametrosAdmin)
 admin.site.register(MovRotativo, MovRotativoAdmin)
 admin.site.register(Mensalista)
+admin.site.register(MovMensalista,MovMensalistaAdmin)
 
 
 

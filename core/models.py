@@ -1,6 +1,7 @@
 from django.db import models
 import math
 
+
 class Pessoa(models.Model):
     nome = models.CharField('Nome', max_length=100)
     endereco = models.CharField('Endereço', max_length=200)
@@ -80,7 +81,7 @@ class Parametros(models.Model):
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now_add=True)
 
-    def save(self, force_insert=False, force_update=False):
+    def save(self, force_insert=False, force_update=False, **kwargs):
         instance = super(Parametros, self)
         instance.save(force_insert, force_update)
         if self.atual:
@@ -129,9 +130,6 @@ class MovRotativo(models.Model):
         else:
             return 0
 
-    def o_veiculo(self):
-        return self.veiculo
-
     def __str__(self):
         return self.veiculo.placa
 
@@ -149,6 +147,21 @@ class Mensalista(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.veiculo, self.inicio)
+
+    class Meta:
+        verbose_name = 'Mensalista'
+        verbose_name_plural = 'Mensalista'
+
+
+class MovMensalista(models.Model):
+    mensalista = models.ForeignKey(
+        Mensalista, verbose_name='Mensalista', related_name='mensalista', on_delete=models.CASCADE
+    )
+    dt_pgto = models.DateField('Data da Cobrança')
+    total = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return '{} - {}'.format(self.mensalista, self.total)
 
     class Meta:
         verbose_name = 'Movimento Mensalista'
