@@ -5,7 +5,9 @@
 
     <ul>
     {% for mensalista in mensalistas %}
-        <li> {{ mensalista }}</li>
+        <li>
+            <a href="{% url 'core:core_altera_mensalista' mensalista.id %}">{{ mensalista }}</a>
+        </li>
     {% empty %}
         <li> Nenhum mensalista encontrado</li>
     {% endfor %}

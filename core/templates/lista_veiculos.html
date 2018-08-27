@@ -5,13 +5,15 @@
 
     <ul>
     {% for veiculo in veiculos %}
-        <li> {{ veiculo }}</li>
+        <li>
+            <a href="{% url 'core:core_altera_veiculo' veiculo.id %}">{{ veiculo }}</a>
+        </li>
     {% empty %}
         <li> Nenhuma veículo encontrado</li>
     {% endfor %}
     </ul>
     <h2>Formulário</h2>
-    <form method="post" action="{% url 'core:core_salva_veiculo' %}">
+    <form method="post" action="{% url 'core:core_novo_veiculo' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Cadastrar</button>

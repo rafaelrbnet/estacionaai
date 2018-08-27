@@ -27,6 +27,21 @@ def novo_pessoa(request):
     return redirect('core:core_lista_pessoas')
 
 
+def altera_pessoa(request, pk):
+    context = {}
+    pessoa = Pessoa.objects.get(pk=pk)
+    form = PessoaForm(request.POST or None, instance=pessoa)
+    context['pessoa'] = pessoa
+    context['form'] = form
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('core:core_lista_pessoas')
+    else:
+        return render(request, 'update_pessoa.html', context)
+
+
 def lista_veiculos(request):
     veiculos = Veiculo.objects.all()
     context = {'veiculos': veiculos, 'form': VeiculoForm}
@@ -38,6 +53,21 @@ def novo_veiculo(request):
     if form.is_valid():
         form.save()
     return redirect('core:core_lista_veiculos')
+
+
+def altera_veiculo(request, pk):
+    context = {}
+    veiculo = Veiculo.objects.get(pk=pk)
+    form = VeiculoForm(request.POST or None, instance=veiculo)
+    context['veiculo'] = veiculo
+    context['form'] = form
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('core:core_lista_veiculos')
+    else:
+        return render(request, 'update_veiculo.html', context)
 
 
 def lista_movrotativos(request):
@@ -53,6 +83,21 @@ def novo_movrotativo(request):
     return redirect('core:core_lista_movrotativos')
 
 
+def altera_movrotativo(request, pk):
+    context = {}
+    movrotativo = MovRotativo.objects.get(pk=pk)
+    form = MovRotativoForm(request.POST or None, instance=movrotativo)
+    context['movrotativo'] = movrotativo
+    context['form'] = form
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('core:core_lista_movrotativos')
+    else:
+        return render(request, 'update_movrotativo.html', context)
+
+
 def lista_mensalistas(request):
     mensalistas = Mensalista.objects.all()
     context = {'mensalistas': mensalistas, 'form': MensalistaForm}
@@ -66,6 +111,21 @@ def novo_mensalista(request):
     return redirect('core:core_lista_mensalistas')
 
 
+def altera_mensalista(request, pk):
+    context = {}
+    mensalista = Mensalista.objects.get(pk=pk)
+    form = MensalistaForm(request.POST or None, instance=mensalista)
+    context['mensalista'] = mensalista
+    context['form'] = form
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('core:core_lista_mensalistas')
+    else:
+        return render(request, 'update_mensalista.html', context)
+
+
 def lista_movmensalistas(request):
     movmensalistas = MovMensalista.objects.all()
     context = {'movmensalistas': movmensalistas, 'form': MovMensalistaForm}
@@ -77,3 +137,19 @@ def novo_movmensalista(request):
     if form.is_valid():
         form.save()
     return redirect('core:core_lista_movmensalistas')
+
+
+def altera_movmensalista(request, pk):
+    context = {}
+    movmensalista = MovMensalista.objects.get(pk=pk)
+    form = MovMensalistaForm(request.POST or None, instance=movmensalista)
+    context['movmensalista'] = movmensalista
+    context['form'] = form
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('core:core_lista_movmensalistas')
+    else:
+        return render(request, 'update_movmensalista.html', context)
+

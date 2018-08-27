@@ -5,7 +5,9 @@
 
     <ul>
     {% for movrotativo in movrotativos %}
-        <li> {{ movrotativo }}</li>
+        <li>
+            <a href="{% url 'core:core_altera_movrotativo' movrotativo.id %}"> {{ movrotativo }}</a>
+        </li>
     {% empty %}
         <li> Nenhum movimento rotativo encontrado</li>
     {% endfor %}

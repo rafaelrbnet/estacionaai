@@ -5,14 +5,16 @@
 
     <ul>
     {% for pessoa in pessoas %}
-        <li> {{ pessoa.nome }}</li>
+        <li>
+            <a href="{% url 'core:core_altera_pessoa' pessoa.id %}">{{ pessoa.nome }}</a>
+        </li>
     {% empty %}
         <li> Nenhuma pessoa encontrada</li>
     {% endfor %}
     </ul>
 
     <h2>Formulário</h2>
-    <form method="post" action="{% url 'core:core_salva_pessoa' %}">
+    <form method="post" action="{% url 'core:core_novo_pessoa' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Cadastrar</button>

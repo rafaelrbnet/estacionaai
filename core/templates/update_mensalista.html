@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Atualiza mensalista {{ mensalista }}</h2>
+
+
+    <form method="post" action="{% url 'core:core_altera_mensalista' mensalista.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Alterar</button>
+    </form>
+{% endblock %}
