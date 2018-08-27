@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import (
     Pessoa,
     Veiculo,
@@ -6,6 +6,7 @@ from .models import (
     Mensalista,
     MovMensalista
 )
+from .forms import PessoaForm
 
 
 def home(request):
@@ -15,8 +16,15 @@ def home(request):
 
 def lista_pessoas(request):
     pessoas = Pessoa.objects.all()
-    context = {'pessoas': pessoas}
+    context = {'pessoas': pessoas, 'form': PessoaForm}
     return render(request, 'lista_pessoas.html', context)
+
+
+def salva_pessoa(request):
+    form = PessoaForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    return redirect('core:core_lista_pessoas')
 
 
 def lista_veiculos(request):
