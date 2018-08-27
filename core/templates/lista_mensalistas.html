@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Lista Mensalistas</h2>
+
+    <ul>
+    {% for mensalista in mensalistas %}
+        <li> {{ mensalista }}</li>
+    {% empty %}
+        <li> Nenhum mensalista encontrado</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Lista Movimentos Mensalistas</h2>
+
+    <ul>
+    {% for movmensalista in movmensalistas %}
+        <li> {{ movmensalista }}</li>
+    {% empty %}
+        <li> Nenhum movimento mensalista encontrado</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
