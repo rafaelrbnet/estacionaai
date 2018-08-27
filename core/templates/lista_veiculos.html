@@ -10,4 +10,10 @@
         <li> Nenhuma veículo encontrado</li>
     {% endfor %}
     </ul>
+    <h2>Formulário</h2>
+    <form method="post" action="{% url 'core:core_salva_veiculo' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar</button>
+    </form>
 {% endblock %}

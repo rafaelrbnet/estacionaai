@@ -6,7 +6,7 @@ from .models import (
     Mensalista,
     MovMensalista
 )
-from .forms import PessoaForm
+from .forms import PessoaForm, VeiculoForm
 
 
 def home(request):
@@ -29,8 +29,15 @@ def salva_pessoa(request):
 
 def lista_veiculos(request):
     veiculos = Veiculo.objects.all()
-    context = {'veiculos': veiculos}
+    context = {'veiculos': veiculos, 'form': VeiculoForm}
     return render(request, 'lista_veiculos.html', context)
+
+
+def salva_veiculo(request):
+    form = VeiculoForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    return redirect('core:core_lista_veiculos')
 
 
 def lista_movrotativos(request):
