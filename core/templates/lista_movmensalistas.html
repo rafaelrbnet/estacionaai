@@ -10,4 +10,10 @@
         <li> Nenhum movimento mensalista encontrado</li>
     {% endfor %}
     </ul>
+    <h2>Formulário</h2>
+    <form method="post" action="{% url 'core:core_novo_movmensalista' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar</button>
+    </form>
 {% endblock %}

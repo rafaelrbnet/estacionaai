@@ -10,4 +10,11 @@
         <li> Nenhum movimento rotativo encontrado</li>
     {% endfor %}
     </ul>
+    <h2>Formulário</h2>
+    <form method="post" action="{% url 'core:core_novo_movrotativo' %}">
+        {% csrf_token %}
+        {{ form.errors }}
+        {{ form.as_p }}
+        <button type="submit">Cadastrar</button>
+    </form>
 {% endblock %}
