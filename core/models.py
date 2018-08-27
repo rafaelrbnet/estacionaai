@@ -49,16 +49,16 @@ class TamanhoVeiculo(models.Model):
 
 
 class Veiculo(models.Model):
-    proprietario = models.OneToOneField(
+    proprietario = models.ForeignKey(
         Pessoa, verbose_name='Proprietário do veículo', related_name='ProprietarioVeiculo', on_delete=models.CASCADE
     )
-    marca = models.OneToOneField(
+    marca = models.ForeignKey(
         MarcaVeiculo, verbose_name='Marca do veículo', related_name='MarcaVeiculo', on_delete=models.CASCADE
     )
-    cor = models.OneToOneField(
+    cor = models.ForeignKey(
         CorVeiculo, verbose_name='Cor do veículo', related_name='CorVeiculo', on_delete=models.CASCADE
     )
-    tamanho = models.OneToOneField(
+    tamanho = models.ForeignKey(
         TamanhoVeiculo, verbose_name='Tamanho do veículo',  related_name='TamanhoVeiculo', on_delete=models.CASCADE
     )
     placa = models.CharField('Placa', max_length=7)
