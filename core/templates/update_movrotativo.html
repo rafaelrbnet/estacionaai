@@ -3,10 +3,11 @@
 {% block content %}
     <h2>Atualiza movimento rotativo {{ movrotativo }}</h2>
 
-
     <form method="post" action="{% url 'core:core_altera_movrotativo' movrotativo.id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Alterar</button>
     </form>
+
+    <a href="{% url 'core:core_apaga_movrotativo' movrotativo.id %}">Deletar</a>
 {% endblock %}

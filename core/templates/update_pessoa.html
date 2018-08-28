@@ -3,10 +3,11 @@
 {% block content %}
     <h2>Atualiza pessoa {{ pessoa }}</h2>
 
-
     <form method="post" action="{% url 'core:core_altera_pessoa' pessoa.id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Alterar</button>
     </form>
+
+    <a href="{% url 'core:core_apaga_pessoa' pessoa.id %}">Deletar</a>
 {% endblock %}

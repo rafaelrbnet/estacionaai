@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Tem certeza que deseja deletar {{ objeto }}</h2>
+
+
+    <form method="post" action="{% url url_objeto objeto.id %}">
+        {% csrf_token %}
+        <button type="submit">Deletar</button>
+    </form>
+{% endblock %}

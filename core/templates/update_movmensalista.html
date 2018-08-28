@@ -3,10 +3,11 @@
 {% block content %}
     <h2>Atualiza movimento mensalistas {{ movmensalista }}</h2>
 
-
     <form method="post" action="{% url 'core:core_altera_movmensalista' movmensalista.id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Alterar</button>
     </form>
+
+    <a href="{% url 'core:core_apaga_movmensalista' movmensalista.id %}">Deletar</a>
 {% endblock %}

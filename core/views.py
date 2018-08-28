@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import (
     Pessoa,
     Veiculo,
@@ -29,7 +29,7 @@ def novo_pessoa(request):
 
 def altera_pessoa(request, pk):
     context = {}
-    pessoa = Pessoa.objects.get(pk=pk)
+    pessoa = get_object_or_404(Pessoa, pk=pk)
     form = PessoaForm(request.POST or None, instance=pessoa)
     context['pessoa'] = pessoa
     context['form'] = form
@@ -40,6 +40,16 @@ def altera_pessoa(request, pk):
             return redirect('core:core_lista_pessoas')
     else:
         return render(request, 'update_pessoa.html', context)
+
+
+def apaga_pessoa(request, pk):
+    pessoa = get_object_or_404(Pessoa, pk=pk)
+    if request.method == 'POST':
+        pessoa.delete()
+        return redirect('core:core_lista_pessoas')
+    else:
+        context = {'objeto': pessoa, 'url_objeto': 'core:core_apaga_pessoa'}
+        return render(request, 'delete_confirm.html', context)
 
 
 def lista_veiculos(request):
@@ -57,7 +67,7 @@ def novo_veiculo(request):
 
 def altera_veiculo(request, pk):
     context = {}
-    veiculo = Veiculo.objects.get(pk=pk)
+    veiculo = get_object_or_404(Veiculo, pk=pk)
     form = VeiculoForm(request.POST or None, instance=veiculo)
     context['veiculo'] = veiculo
     context['form'] = form
@@ -68,6 +78,16 @@ def altera_veiculo(request, pk):
             return redirect('core:core_lista_veiculos')
     else:
         return render(request, 'update_veiculo.html', context)
+
+
+def apaga_veiculo(request, pk):
+    veiculo = get_object_or_404(Veiculo, pk=pk)
+    if request.method == 'POST':
+        veiculo.delete()
+        return redirect('core:core_lista_veiculos')
+    else:
+        context = {'objeto': veiculo, 'url_objeto': 'core:core_apaga_veiculo'}
+        return render(request, 'delete_confirm.html', context)
 
 
 def lista_movrotativos(request):
@@ -85,7 +105,7 @@ def novo_movrotativo(request):
 
 def altera_movrotativo(request, pk):
     context = {}
-    movrotativo = MovRotativo.objects.get(pk=pk)
+    movrotativo = get_object_or_404(MovRotativo, pk=pk)
     form = MovRotativoForm(request.POST or None, instance=movrotativo)
     context['movrotativo'] = movrotativo
     context['form'] = form
@@ -96,6 +116,16 @@ def altera_movrotativo(request, pk):
             return redirect('core:core_lista_movrotativos')
     else:
         return render(request, 'update_movrotativo.html', context)
+
+
+def apaga_movrotativo(request, pk):
+    movrotativo = get_object_or_404(MovRotativo, pk=pk)
+    if request.method == 'POST':
+        movrotativo.delete()
+        return redirect('core:core_lista_movrotativos')
+    else:
+        context = {'objeto': movrotativo, 'url_objeto': 'core:core_apaga_movrotativo'}
+        return render(request, 'delete_confirm.html', context)
 
 
 def lista_mensalistas(request):
@@ -113,7 +143,7 @@ def novo_mensalista(request):
 
 def altera_mensalista(request, pk):
     context = {}
-    mensalista = Mensalista.objects.get(pk=pk)
+    mensalista = get_object_or_404(Mensalista, pk=pk)
     form = MensalistaForm(request.POST or None, instance=mensalista)
     context['mensalista'] = mensalista
     context['form'] = form
@@ -124,6 +154,16 @@ def altera_mensalista(request, pk):
             return redirect('core:core_lista_mensalistas')
     else:
         return render(request, 'update_mensalista.html', context)
+
+
+def apaga_mensalista(request, pk):
+    mensalista = get_object_or_404(Mensalista, pk=pk)
+    if request.method == 'POST':
+        mensalista.delete()
+        return redirect('core:core_lista_mensalistas')
+    else:
+        context = {'objeto': mensalista, 'url_objeto': 'core:core_apaga_mensalista'}
+        return render(request, 'delete_confirm.html', context)
 
 
 def lista_movmensalistas(request):
@@ -141,7 +181,7 @@ def novo_movmensalista(request):
 
 def altera_movmensalista(request, pk):
     context = {}
-    movmensalista = MovMensalista.objects.get(pk=pk)
+    movmensalista = get_object_or_404(MovMensalista, pk=pk)
     form = MovMensalistaForm(request.POST or None, instance=movmensalista)
     context['movmensalista'] = movmensalista
     context['form'] = form
@@ -153,3 +193,12 @@ def altera_movmensalista(request, pk):
     else:
         return render(request, 'update_movmensalista.html', context)
 
+
+def apaga_movmensalista(request, pk):
+    movmensalista = get_object_or_404(MovMensalista, pk=pk)
+    if request.method == 'POST':
+        movmensalista.delete()
+        return redirect('core:core_lista_movmensalistas')
+    else:
+        context = {'objeto': movmensalista, 'url_objeto': 'core:core_apaga_movmensalista'}
+        return render(request, 'delete_confirm.html', context)
