@@ -1,0 +1,1 @@
+web: gunicorn estacionaai.wsgi --log-file -
