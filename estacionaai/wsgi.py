@@ -8,10 +8,11 @@ https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 """
 
 import os
-from dj_static import Cling
+from whitenoise import WhiteNoise
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'estacionaai.settings')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+application = WhiteNoise(get_wsgi_application(), os.path.join(BASE_DIR, "static"))
 
-application = Cling(get_wsgi_application())
