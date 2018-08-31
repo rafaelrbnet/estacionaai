@@ -1,13 +1,13 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 
 {% block content %}
     <h2>Atualiza movimento mensalistas {{ movmensalista }}</h2>
 
     <form method="post" action="{% url 'core:core_altera_movmensalista' movmensalista.id %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Alterar</button>
+        {{ form|bootstrap }}
+        <button type="submit" class="btn btn-primary my-2 my-sm-0">Alterar</button>
+        <a href="{% url 'core:core_apaga_movmensalista' movmensalista.id %}" class="btn btn-danger my-2 my-sm-0">Deletar</a>
     </form>
-
-    <a href="{% url 'core:core_apaga_movmensalista' movmensalista.id %}">Deletar</a>
 {% endblock %}

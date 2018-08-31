@@ -1,21 +1,67 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 
 {% block content %}
-    <h2>Lista veículos</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>
+                Veículos
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+		<div class="col-md-6">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Veículo
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+                    {% for veiculo in veiculos %}
+        			<tr>
+						<td>
+							<a href="{% url 'core:core_altera_veiculo' veiculo.id %}">{{ veiculo.id }}</a>
+						</td>
+						<td>
+							<a href="{% url 'core:core_altera_veiculo' veiculo.id %}">{{ veiculo }}</a>
+						</td>
+					</tr>
+                    {% empty %}
+                        <tr class="table-active">
+						<td colspan="2">
+							Nenhuma veículo encontrado
+						</td>
+					</tr>
+                    {% endfor %}
+				</tbody>
+			</table>
+			<nav>
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" href="#">Previous</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">1</a>
+					</li>
 
-    <ul>
-    {% for veiculo in veiculos %}
-        <li>
-            <a href="{% url 'core:core_altera_veiculo' veiculo.id %}">{{ veiculo }}</a>
-        </li>
-    {% empty %}
-        <li> Nenhuma veículo encontrado</li>
-    {% endfor %}
-    </ul>
-    <h2>Formulário</h2>
-    <form method="post" action="{% url 'core:core_novo_veiculo' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Cadastrar</button>
-    </form>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+        <div class="col-md-6">
+            <form method="post" action="{% url 'core:core_novo_veiculo' %}">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <button type="submit" class="btn btn-primary my-2 my-sm-0">Cadastrar</button>
+            </form>
+        </div>
+	</div>
 {% endblock %}

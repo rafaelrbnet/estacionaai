@@ -1,22 +1,67 @@
 {% extends "base.html" %}
+{% load bootstrap %}
 
 {% block content %}
-    <h2>Lista movimentos Rotativos</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>
+                Movimentos Rotativos
+            </h3>
+        </div>
+    </div>
+    <div class="row">
+		<div class="col-md-6">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>
+							#
+						</th>
+						<th>
+							Veículo
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+                    {% for movrotativo in movrotativos %}
+        			<tr>
+						<td>
+							<a href="{% url 'core:core_altera_movrotativo' movrotativo.id %}">{{ movrotativo.id }}</a>
+						</td>
+						<td>
+							<a href="{% url 'core:core_altera_movrotativo' movrotativo.id %}"> {{ movrotativo }}</a>
+						</td>
+					</tr>
+                    {% empty %}
+                        <tr class="table-active">
+						<td colspan="2">
+							Nenhum movimento rotativo encontrado
+						</td>
+					</tr>
+                    {% endfor %}
+				</tbody>
+			</table>
+			<nav>
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" href="#">Previous</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">1</a>
+					</li>
 
-    <ul>
-    {% for movrotativo in movrotativos %}
-        <li>
-            <a href="{% url 'core:core_altera_movrotativo' movrotativo.id %}"> {{ movrotativo }}</a>
-        </li>
-    {% empty %}
-        <li> Nenhum movimento rotativo encontrado</li>
-    {% endfor %}
-    </ul>
-    <h2>Formulário</h2>
-    <form method="post" action="{% url 'core:core_novo_movrotativo' %}">
-        {% csrf_token %}
-        {{ form.errors }}
-        {{ form.as_p }}
-        <button type="submit">Cadastrar</button>
-    </form>
+					<li class="page-item">
+						<a class="page-link" href="#">Next</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+        <div class="col-md-6">
+            <form method="post" action="{% url 'core:core_novo_movrotativo' %}">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <button type="submit" class="btn btn-primary my-2 my-sm-0">Cadastrar</button>
+            </form>
+        </div>
+	</div>
 {% endblock %}

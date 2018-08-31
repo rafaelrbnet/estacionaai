@@ -6,6 +6,6 @@
 
     <form method="post" action="{% url url_objeto objeto.id %}">
         {% csrf_token %}
-        <button type="submit">Deletar</button>
+        <button type="submit" class="btn btn-danger">Deletar</button>
     </form>
 {% endblock %}
