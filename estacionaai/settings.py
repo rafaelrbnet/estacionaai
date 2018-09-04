@@ -154,11 +154,12 @@ MESSAGE_TAGS = {
 }
 
 # E-mail
-# EMAIL_BACKEND = 'django.core.mail.backends.SMTP.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+'''
+EMAIL_BACKEND = 'django.core.mail.backends.SMTP.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Rafael Baena Neto<rafael.rbnet@gmail.com>'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smpt.gmail.com'
 EMAIL_HOST_USER = 'email@gmail.com'
 EMAIL_HOST_PASSWORD = 'pass'
-EMAIL_PORT = 587
+EMAIL_PORT = 587'''
