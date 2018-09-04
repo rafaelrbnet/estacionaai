@@ -140,12 +140,12 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Auth
-LOGIN_URL = 'accounts:login'
-
-LOGIN_REDIRECT_URL = 'core:home'
-
 AUTH_USER_MODEL = 'accounts.User'
 
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:dashboard'
+
+# Bootstrap
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
@@ -155,11 +155,11 @@ MESSAGE_TAGS = {
 }
 
 # E-mail
-# EMAIL_BACKEND = 'django.core.mail.backends.SMTP.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.SMTP.EmailBackend'
+'''EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'Rafael Baena Neto<rafael.rbnet@gmail.com>'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smpt.gmail.com'
-EMAIL_HOST_USER = 'rafael.rbnet@gmail.com'
-EMAIL_HOST_PASSWORD = 'DnkrozGoogle'
-EMAIL_PORT = 587
+EMAIL_HOST_USER = 'email@gmail.com'
+EMAIL_HOST_PASSWORD = 'pass'
+EMAIL_PORT = 587'''

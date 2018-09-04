@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
-''
 from .forms import RegisterForm, EditAccountForm, PasswordResetForm
 from .models import PasswordReset
 
