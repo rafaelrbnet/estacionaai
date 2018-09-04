@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item">
+    <a href="{% url 'accounts:dashboard' %}">Conta</a>
+</li>
+{% endblock %}
+
+{% block content %}
+
+
+<p>Seja bem vindo {{ user }}</p>
+
+{% endblock %}

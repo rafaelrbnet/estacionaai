@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+{{ block.super }}
+<li class="breadcrumb-item">
+    <a href="{% url 'accounts:login' %}">Entrar</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <h1 class="h3 mb-3 font-weight-normal">Informe seus dados de cadastro</h1>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% include 'bs4_form.html' with form=form %}
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <p>
+            Não é cadastrado? <a href="{% url 'accounts:register' %}" title="">Cadastre-se</a> <br />
+            Esqueceu a senha? <a href="{% url 'accounts:password_reset' %}" title="">Nova senha</a> <br />
+        </p>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+{% endblock %}

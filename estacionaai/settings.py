@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from decouple import config
 from dj_database_url import parse as dburl
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,8 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # plugins
     'bootstrapform',
+    'widget_tweaks',
     # apps
-    'core'
+    'core',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -135,3 +138,28 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Auth
+LOGIN_URL = 'accounts:login'
+
+LOGIN_REDIRECT_URL = 'core:home'
+
+AUTH_USER_MODEL = 'accounts.User'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
+
+# E-mail
+# EMAIL_BACKEND = 'django.core.mail.backends.SMTP.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'Rafael Baena Neto<rafael.rbnet@gmail.com>'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smpt.gmail.com'
+EMAIL_HOST_USER = 'rafael.rbnet@gmail.com'
+EMAIL_HOST_PASSWORD = 'DnkrozGoogle'
+EMAIL_PORT = 587

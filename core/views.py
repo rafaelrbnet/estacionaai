@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from .models import (
     Pessoa,
     Veiculo,
@@ -7,6 +8,7 @@ from .models import (
     MovMensalista
 )
 from .forms import PessoaForm, VeiculoForm, MovMensalistaForm, MensalistaForm, MovRotativoForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -14,19 +16,23 @@ def home(request):
     return render(request, 'index.html', context)
 
 
+@login_required
 def lista_pessoas(request):
     pessoas = Pessoa.objects.all()
     context = {'pessoas': pessoas, 'form': PessoaForm}
     return render(request, 'lista_pessoas.html', context)
 
 
+@login_required
 def novo_pessoa(request):
     form = PessoaForm(request.POST or None)
     if form.is_valid():
+        messages.success(request, "Pessoa criada com sucesso")
         form.save()
     return redirect('core:core_lista_pessoas')
 
 
+@login_required
 def altera_pessoa(request, pk):
     context = {}
     pessoa = get_object_or_404(Pessoa, pk=pk)
@@ -37,27 +43,32 @@ def altera_pessoa(request, pk):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
+            messages.success(request, "Pessoa alterada com sucesso")
             return redirect('core:core_lista_pessoas')
     else:
         return render(request, 'update_pessoa.html', context)
 
 
+@login_required
 def apaga_pessoa(request, pk):
     pessoa = get_object_or_404(Pessoa, pk=pk)
     if request.method == 'POST':
         pessoa.delete()
+        messages.success(request, "Pessoa apagada com sucesso")
         return redirect('core:core_lista_pessoas')
     else:
         context = {'objeto': pessoa, 'url_objeto': 'core:core_apaga_pessoa'}
         return render(request, 'delete_confirm.html', context)
 
 
+@login_required
 def lista_veiculos(request):
     veiculos = Veiculo.objects.all()
     context = {'veiculos': veiculos, 'form': VeiculoForm}
     return render(request, 'lista_veiculos.html', context)
 
 
+@login_required
 def novo_veiculo(request):
     form = VeiculoForm(request.POST or None)
     if form.is_valid():
@@ -65,6 +76,7 @@ def novo_veiculo(request):
     return redirect('core:core_lista_veiculos')
 
 
+@login_required
 def altera_veiculo(request, pk):
     context = {}
     veiculo = get_object_or_404(Veiculo, pk=pk)
@@ -80,6 +92,7 @@ def altera_veiculo(request, pk):
         return render(request, 'update_veiculo.html', context)
 
 
+@login_required
 def apaga_veiculo(request, pk):
     veiculo = get_object_or_404(Veiculo, pk=pk)
     if request.method == 'POST':
@@ -90,12 +103,14 @@ def apaga_veiculo(request, pk):
         return render(request, 'delete_confirm.html', context)
 
 
+@login_required
 def lista_movrotativos(request):
     movrotativos = MovRotativo.objects.all()
     context = {'movrotativos': movrotativos, 'form': MovRotativoForm}
     return render(request, 'lista_movrotativos.html', context)
 
 
+@login_required
 def novo_movrotativo(request):
     form = MovRotativoForm(request.POST or None)
     if form.is_valid():
@@ -103,6 +118,7 @@ def novo_movrotativo(request):
     return redirect('core:core_lista_movrotativos')
 
 
+@login_required
 def altera_movrotativo(request, pk):
     context = {}
     movrotativo = get_object_or_404(MovRotativo, pk=pk)
@@ -118,6 +134,7 @@ def altera_movrotativo(request, pk):
         return render(request, 'update_movrotativo.html', context)
 
 
+@login_required
 def apaga_movrotativo(request, pk):
     movrotativo = get_object_or_404(MovRotativo, pk=pk)
     if request.method == 'POST':
@@ -128,12 +145,14 @@ def apaga_movrotativo(request, pk):
         return render(request, 'delete_confirm.html', context)
 
 
+@login_required
 def lista_mensalistas(request):
     mensalistas = Mensalista.objects.all()
     context = {'mensalistas': mensalistas, 'form': MensalistaForm}
     return render(request, 'lista_mensalistas.html', context)
 
 
+@login_required
 def novo_mensalista(request):
     form = MensalistaForm(request.POST or None)
     if form.is_valid():
@@ -141,6 +160,7 @@ def novo_mensalista(request):
     return redirect('core:core_lista_mensalistas')
 
 
+@login_required
 def altera_mensalista(request, pk):
     context = {}
     mensalista = get_object_or_404(Mensalista, pk=pk)
@@ -156,6 +176,7 @@ def altera_mensalista(request, pk):
         return render(request, 'update_mensalista.html', context)
 
 
+@login_required
 def apaga_mensalista(request, pk):
     mensalista = get_object_or_404(Mensalista, pk=pk)
     if request.method == 'POST':
@@ -166,12 +187,14 @@ def apaga_mensalista(request, pk):
         return render(request, 'delete_confirm.html', context)
 
 
+@login_required
 def lista_movmensalistas(request):
     movmensalistas = MovMensalista.objects.all()
     context = {'movmensalistas': movmensalistas, 'form': MovMensalistaForm}
     return render(request, 'lista_movmensalistas.html', context)
 
 
+@login_required
 def novo_movmensalista(request):
     form = MovMensalistaForm(request.POST or None)
     if form.is_valid():
@@ -179,6 +202,7 @@ def novo_movmensalista(request):
     return redirect('core:core_lista_movmensalistas')
 
 
+@login_required
 def altera_movmensalista(request, pk):
     context = {}
     movmensalista = get_object_or_404(MovMensalista, pk=pk)
@@ -194,6 +218,7 @@ def altera_movmensalista(request, pk):
         return render(request, 'update_movmensalista.html', context)
 
 
+@login_required
 def apaga_movmensalista(request, pk):
     movmensalista = get_object_or_404(MovMensalista, pk=pk)
     if request.method == 'POST':
