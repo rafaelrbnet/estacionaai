@@ -1,0 +1,22 @@
+<nav>
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link"  href="?page={{ page_obj.previous_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}">Anterior</a>
+        </li>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+
+        <li  class="page-item {% if page == page_obj.number %} active {% endif %}">
+            <a class="page-link"  href="?page={{ page }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}">{{ page }}</a>
+        </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link"  href="?page={{ page_obj.next_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}">Próxima</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
