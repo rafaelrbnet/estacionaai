@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+from django.views.generic import (TemplateView, View, ListView, DetailView)
+
 from .models import (
     Pessoa,
     Veiculo,
@@ -8,19 +13,39 @@ from .models import (
     MovMensalista
 )
 from .forms import PessoaForm, VeiculoForm, MovMensalistaForm, MensalistaForm, MovRotativoForm
-from django.contrib.auth.decorators import login_required
 
 
-def home(request):
-    context = {'mensagem': 'Olá Mundo'}
-    return render(request, 'index.html', context)
+class HomeView(TemplateView):
+
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mensagem'] = 'Olá Mundo'
+        return context
 
 
-@login_required
-def lista_pessoas(request):
-    pessoas = Pessoa.objects.all()
-    context = {'pessoas': pessoas, 'form': PessoaForm}
-    return render(request, 'lista_pessoas.html', context)
+@method_decorator(login_required, name='dispatch')
+class ListaPessoasView(ListView):
+
+    paginate_by = 2
+    template_name = 'lista_pessoas.html'
+
+    def get_queryset(self):
+        queryset = Pessoa.objects.all()
+        order = self.request.GET.get('order', '')
+        if order == 'nome':
+            queryset = queryset.order_by('-nome')
+        elif order == 'endereco':
+            queryset = queryset.order_by('-endereco')
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(ListaPessoasView, self).get_context_data(**kwargs)
+        context['form'] = PessoaForm
+
+        return context
 
 
 @login_required
@@ -61,11 +86,25 @@ def apaga_pessoa(request, pk):
         return render(request, 'delete_confirm.html', context)
 
 
-@login_required
-def lista_veiculos(request):
-    veiculos = Veiculo.objects.all()
-    context = {'veiculos': veiculos, 'form': VeiculoForm}
-    return render(request, 'lista_veiculos.html', context)
+@method_decorator(login_required, name='dispatch')
+class ListaVeiculosView(ListView):
+
+    paginate_by = 2
+    template_name = 'lista_veiculos.html'
+
+    def get_queryset(self):
+        queryset = Veiculo.objects.all()
+        order = self.request.GET.get('order', '')
+        if order == 'veiculo':
+            queryset = queryset.order_by('-veiculo')
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(ListaVeiculosView, self).get_context_data(**kwargs)
+        context['form'] = VeiculoForm
+
+        return context
 
 
 @login_required

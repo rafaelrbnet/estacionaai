@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load bootstrap %}
 
 {% block content %}
     <div class="row">
@@ -18,10 +17,10 @@
 							#
 						</th>
 						<th>
-							Nome
+                            <a href="?order=nome">Nome</a>
 						</th>
 						<th>
-							Endereço
+                            <a href="?order=endereco">Endereço</a>
 						</th>
 						<th>
 							Telefones
@@ -29,7 +28,7 @@
 					</tr>
 				</thead>
 				<tbody>
-                    {% for pessoa in pessoas %}
+                    {% for pessoa in object_list %}
         			<tr>
 						<td>
 							<a href="{% url 'core:core_altera_pessoa' pessoa.id %}">{{ pessoa.id }}</a>
@@ -46,7 +45,7 @@
 					</tr>
                     {% empty %}
                         <tr class="table-active">
-						<td colspan="3">
+						<td colspan="4">
 							Nenhuma pessoa encontrada
 						</td>
 					</tr>
@@ -55,29 +54,33 @@
 			</table>
 			<nav>
 				<ul class="pagination">
-					<li class="page-item">
-						<a class="page-link" href="#">Previous</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">1</a>
-					</li>
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"  href="?page={{ page_obj.previous_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}">Anterior</a>
+                    </li>
+                    {% endif %}
 
-					<li class="page-item">
-						<a class="page-link" href="#">Next</a>
-					</li>
+					{% for page in paginator.page_range %}
+
+                    <li  class="page-item {% if page == page_obj.number %} active {% endif %}">
+                        <a class="page-link"  href="?page={{ page }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}">{{ page }}</a>
+                    </li>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"  href="?page={{ page_obj.next_page_number }}{% if request.GET.order %}&order={{ request.GET.order }}{% endif %}">Próxima</a>
+                    </li>
+                    {% endif %}
 				</ul>
 			</nav>
 		</div>
         <div class="col-md-6">
             <form method="post" action="{% url 'core:core_novo_pessoa' %}">
                 {% csrf_token %}
-                {{ form|bootstrap }}
+                {% include 'bs4_form.html' with form=form %}
                 <button type="submit" class="btn btn-primary my-2 my-sm-0">Cadastrar</button>
             </form>
         </div>
 	</div>
-
-
-
-
 {% endblock %}
