@@ -41,6 +41,10 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown">Mais...</a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                                     {% if user.is_authenticated %}
+                                        {% if user.is_staff %}
+                                        <p><a  class="dropdown-item" href="{% url 'admin:index' %}">Administração</a></p>
+                                        <div class="dropdown-divider"></div>
+                                        {% endif %}
                                     <p><a  class="dropdown-item" href="{% url 'accounts:edit' %}">Dados de Cadastro</a></p>
                                     <p><a  class="dropdown-item" href="{% url 'accounts:edit_password' %}">Alterar senha</a></p>
                                     <p><a  class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></p>
