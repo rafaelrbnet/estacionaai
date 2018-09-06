@@ -12,3 +12,6 @@ Requerimentos:
 
 Endereço:
 https://estaciona-ai.herokuapp.com/
+
+Certificado do Curso:
+https://www.udemy.com/certificate/UC-KO12HSHJ/
